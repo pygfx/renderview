@@ -1,6 +1,4 @@
-<meta charset="utf-8" emacsmode="-*- markdown -*">
-
-**renderview**
+# renderview
 
 A protocol for interactive rendering surfaces
 
@@ -10,15 +8,3 @@ be implemented in browsers, native applications, remote renderers, notebooks,
 etc.
 
 This repository contains the specification and a reference implementation in JavaScript.
-
-
-<!-- Markdeep: -->
-<style class="fallback">
-    body {
-        visibility: hidden;
-        white-space: pre;
-        font-family: monospace
-    }
-</style>
-<script src="static/markdeep.min.js" charset="utf-8"></script>
-<script>window.alreadyProcessedMarkdeep || (document.body.style.visibility = "visible")</script>
