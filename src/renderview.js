@@ -79,12 +79,7 @@ function arraysEqual(a, b) {
 /**
  * The BaseRenderView handles the client-side logic for a render target (typically a <canvas> or <img>).
  *
- * It observes events:
- *
- * - it observes visibility and calls `this.OnVisibleChanged()`.
- * - it observes resizes and calls `this.OnResize()`.
- * - it observes user events ans calls this.OnEvent()`.
- *
+ * It observes events and calls `this.OnEvent()`.
  * It provides convenience methods for setting the size, cursor, and more.
  *
  * When used with a wrapper element, more features are enabled:
@@ -283,22 +278,6 @@ class BaseRenderView {
   }
 
   /**
-   * The subclass should implement this to handle changes in visibility.
-   *
-   * @param {boolean} visible - Whether the view just became visible (true) or invisible (false).
-   */
-  onVisibleChanged(visible) { }
-
-  /**
-   * The subclass should implement this to handle resizes. The base class does *not* emit resize events by itself.
-   *
-   * @param {number} physicalWidth - The width in (physical) pixels.
-   * @param {number} physicalHeight - The height in (physical) pixels.
-   * @param {number} pixelRatio - The pixel ratio. Divide the physical size with this to get the logical size.
-   */
-  onResize(physicalWidth, physicalHeight, pixelRatio) { }
-
-  /**
    * The subclass should implement this to handle events.
    *
    * @param {object} event - The event object as a 'dictionary', following the spec.
@@ -414,10 +393,13 @@ class BaseRenderView {
       }
       if (isVisible !== this._isVisible) {
         this._isVisible = isVisible
-        this.onVisibleChanged(isVisible)
+        const event = {
+          event_type: isVisible ? 'show' : 'hide',
+          time_stamp: getTimestamp()
+        }
+        this.onEvent(event)
       }
-    }
-    )
+    })
     this._intersectionObserver.observe(viewElement)
 
     // ----- resize ---------------
@@ -470,8 +452,19 @@ class BaseRenderView {
         this.sizeElement.style.maxHeight = '90vmin'
       }
 
+      // Store logical size
       this._lsize = [logicalWidth, logicalHeight]
-      this.onResize(physicalWidth, physicalHeight, ratio)
+
+      const event = {
+        event_type: 'resize',
+        width: logicalWidth,
+        height: logicalHeight,
+        pwidth: physicalWidth,
+        pheight: physicalHeight,
+        pixel_ratio: ratio,
+        time_stamp: getTimestamp()
+      }
+      this.onEvent(event)
     })
 
     this._resizeObserver.observe(this.viewElement)
