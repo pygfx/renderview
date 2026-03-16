@@ -348,6 +348,12 @@ class BaseRenderView {
             wrapperElement.classList.add('renderview-wrapper')
             wrapperElement.appendChild(this.viewElement)
 
+            // Debug element
+            const debugElement = document.createElement('div')
+            debugElement.innerHTML = '<b>If you can read this, the rendercanvas.css is likely not applied.</b>'
+            debugElement.classList.add('renderview-hidden')
+            wrapperElement.appendChild(debugElement)
+
             // Create title bar
             const topElement = document.createElement('div')
             topElement.classList.add('renderview-top')
