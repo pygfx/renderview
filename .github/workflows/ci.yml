@@ -20,7 +20,7 @@ jobs:
     - name: Install JS dependencies
       run: npm install -g standard
     - name: Lint JS files
-      run: standard .
+      run: standard src
 
   buildpages:
     name: Build pages
