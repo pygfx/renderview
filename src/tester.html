@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>renderview tester</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The RenderView tester">
+    <!-- renderview.js is loaded as plain script here. This is simpler and nice for debugging, but in production it's better to load it as a module or wrap it in a IIFE -->
+    <script src="renderview.js"></script>
+    <link rel="stylesheet" href="renderview.css">
+    <style>
+        body {
+            height: 210vh;
+            padding: 20px;
+        }
+    </style>
+    <script type="module">
+
+        class TesterRenderView extends BaseRenderView {
+
+            constructor(viewElement, wrapperElement) {
+                super(viewElement, wrapperElement)
+
+                this._drawRequested = false
+                this._events = []
+                this._eventCount = 0
+            }
+
+            onEvent(event) {
+                const events = this._events
+                this._eventCount += 1
+
+                if (events.length > 0 && events[0].event_type == event.event_type) {
+                    events[0] = event
+                } else {
+                    events.unshift(event)
+                    this._events = this._events.slice(0, 32)
+                }
+
+                if (event.event_type == 'resize') {
+                    this.viewElement.width = event.pwidth
+                    this.viewElement.height = event.pheight
+                }
+                if (!this._drawRequested) {
+                    this._drawRequested = true
+                    window.requestAnimationFrame(this.draw.bind(this))
+                }
+            }
+
+            draw() {
+                this._drawRequested = false
+
+                const ctx = this.viewElement.getContext('2d')  // CanvasRenderingContext2D
+                ctx.fillStyle = '#abc'
+                ctx.fillRect(0, 0, this.viewElement.width, this.viewElement.height)
+
+                const fontSize = 16
+                const lineSpacing = fontSize * 2.5
+                const x = 10
+                let y = lineSpacing
+
+                ctx.font = `${fontSize * window.devicePixelRatio}px sans`;
+                ctx.fillStyle = `rgba(0, 0, 0, 1)`
+
+                ctx.fillText(`${this._eventCount} events`, x, y)
+                y += lineSpacing
+
+                let a = 1
+                for (let event of this._events) {
+                    y += lineSpacing
+                    a = Math.max(0, a - 0.04)
+                    ctx.fillStyle = `rgba(0, 0, 0, ${a})`
+                    ctx.fillText(eventToString(event), 5, y)
+                }
+            }
+        }
+
+        const floatKeys = ['x', 'y', 'dx', 'dy', 'time_stamp']
+        function eventToString(event) {
+            let s = '{ '
+            for (let [key, value] of Object.entries(event)) {
+                let v = JSON.stringify(value)
+                if (floatKeys.includes(key)) {
+                    let i = v.indexOf('.')
+                    if (i > 0) { v = v.slice(0, i + 2) } else { v += '.0' }
+                    let pad = 6 - v.length
+                    if (pad > 0) { v = ' '.repeat(pad) + v }
+                }
+                s += `${key}: ${v}, `
+            }
+            s += " }"
+            return s
+        }
+
+        let element1 = document.getElementById('canvas1')
+        let canvas1 = element1
+        let view1 = new TesterRenderView(canvas1, null)
+
+        let element2 = document.getElementById('canvas2')
+        let canvas2 = document.createElement('canvas')
+        let view2 = new TesterRenderView(canvas2, element2)
+
+    </script>
+</head>
+
+<body>
+
+    <h1>RenderView tester</h1>
+
+    <p>
+        A simple web page to test and check the RenderView reference implementation.
+    </p>
+
+    <h2>Plain canvas</h2>
+    <canvas id='canvas1' style='width: 100%; height: 480px; background: #aaa;'></canvas>
+
+    <h2>Canvas with wrapper</h2>
+    <div id='canvas2' class='renderview-wrapper has-titlebar is-resizable'
+        style='width: 800px; height: 480px; background: #aaa'>
+        Loading ...
+    </div>
+
+    <br><br><br><br><br>
+    <i>Below a lot of whitespace to make sure we can scroll the canvas out of view.</i>
+</body>
+
+</html>
