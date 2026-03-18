@@ -394,7 +394,7 @@ class BaseRenderView {
       if (isVisible !== this._isVisible) {
         this._isVisible = isVisible
         const event = {
-          event_type: isVisible ? 'show' : 'hide',
+          type: isVisible ? 'show' : 'hide',
           t: getTimestamp()
         }
         this.onEvent(event)
@@ -456,12 +456,12 @@ class BaseRenderView {
       this._lsize = [logicalWidth, logicalHeight]
 
       const event = {
-        event_type: 'resize',
+        type: 'resize',
         width: logicalWidth,
         height: logicalHeight,
         pwidth: physicalWidth,
         pheight: physicalHeight,
-        pixel_ratio: ratio,
+        pixelratio: ratio,
         timestamp: getTimestamp()
       }
       this.onEvent(event)
@@ -501,7 +501,7 @@ class BaseRenderView {
       lastButtons = buttons
 
       const event = {
-        event_type: 'pointer_down',
+        type: 'pointer_down',
         x: ev.offsetX,
         y: ev.offsetY,
         button,
@@ -552,7 +552,7 @@ class BaseRenderView {
         pendingMoveEvent.y = ev.offsetY
       } else {
         const event = {
-          event_type: 'pointer_move',
+          type: 'pointer_move',
           x: ev.offsetX,
           y: ev.offsetY,
           button,
@@ -587,7 +587,7 @@ class BaseRenderView {
       lastButtons = buttons
 
       const event = {
-        event_type: 'pointer_up',
+        type: 'pointer_up',
         x: ev.offsetX,
         y: ev.offsetY,
         button,
@@ -616,7 +616,7 @@ class BaseRenderView {
       button = 0
 
       const event = {
-        event_type: 'pointer_enter',
+        type: 'pointer_enter',
         x: ev.offsetX,
         y: ev.offsetY,
         button,
@@ -645,7 +645,7 @@ class BaseRenderView {
       button = 0
 
       const event = {
-        event_type: 'pointer_leave',
+        type: 'pointer_leave',
         x: ev.offsetX,
         y: ev.offsetY,
         button,
@@ -675,7 +675,7 @@ class BaseRenderView {
       const modifiers = getModifiers(ev)
 
       const event = {
-        event_type: 'double_click',
+        type: 'double_click',
         x: ev.offsetX,
         y: ev.offsetY,
         button,
@@ -729,7 +729,7 @@ class BaseRenderView {
         pendingWheelEvent.dy += ev.deltaY * scale
       } else {
         const event = {
-          event_type: 'wheel',
+          type: 'wheel',
           x: ev.offsetX,
           y: ev.offsetY,
           dx: ev.deltaX * scale,
@@ -766,7 +766,7 @@ class BaseRenderView {
       const modifiers = getModifiers(ev)
 
       const event = {
-        event_type: 'key_down',
+        type: 'key_down',
         key: KEY_MAP[ev.key] || ev.key,
         modifiers,
         timestamp: getTimestamp()
@@ -784,7 +784,7 @@ class BaseRenderView {
       const modifiers = getModifiers(ev)
 
       const event = {
-        event_type: 'key_up',
+        type: 'key_up',
         key: KEY_MAP[ev.key] || ev.key,
         modifiers,
         timestamp: getTimestamp()
@@ -805,7 +805,7 @@ class BaseRenderView {
       }
 
       const event = {
-        event_type: 'char',
+        type: 'char',
         data: ev.data,
         is_composing: ev.isComposing,
         input_type: ev.inputType,

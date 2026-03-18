@@ -31,14 +31,14 @@
                 const events = this._events
                 this._eventCount += 1
 
-                if (events.length > 0 && events[0].event_type == event.event_type) {
+                if (events.length > 0 && events[0].type == event.type) {
                     events[0] = event
                 } else {
                     events.unshift(event)
                     this._events = this._events.slice(0, 32)
                 }
 
-                if (event.event_type == 'resize') {
+                if (event.type == 'resize') {
                     this.viewElement.width = event.pwidth
                     this.viewElement.height = event.pheight
                 }
