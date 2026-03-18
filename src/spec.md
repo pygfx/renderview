@@ -3,7 +3,7 @@
 
 A protocol for interactive rendering surfaces.
 
-*Last update: 09-05-2025*
+*Last update: 18-03-2026*
 
 *This spec was previously known as the jupyter_rfb event spec, but was rolled into a separate project.*
 
@@ -31,7 +31,7 @@ This spec if used by:
 
 ## Controlling the view
 
-The way that the view (a.k.a. canvas, surface) can be controlled is left up to
+The way that the view (a.k.a. canvas, surface, widget) can be controlled is left up to
 the implementation. This spec does not say much about it, except for the
 following suggestions for settable things:
 
@@ -60,7 +60,7 @@ are well-defined, they can always be serialized to json, and send to other progr
 
 ### resize
 
-This event is emitted when the widget changes size.
+This event is emitted when the canvas changes size.
 
 
 Fields:
@@ -76,11 +76,33 @@ Fields:
 
 ### close
 
-This event is emitted when the widget is closed (i.e. destroyed).
+This event is emitted when the canvas is closed (i.e. destroyed).
 
 Fields:
 
 * `event_type`: 'close'
+* `time_stamp`: A timestamp in seconds.
+
+
+### show
+
+This event is emitted when the canvas is shown. The implementation may
+optionally emit an initial 'show' event; the canvas is initially assumed to be
+shown. If this is not the case, the implementation should emit a 'hide' event.
+
+Fields:
+
+* `event_type`: 'show'
+* `time_stamp`: A timestamp in seconds.
+
+
+### hide
+
+This event is emitted when the canvas is hidden. It can e.g. be minimized or scrolled out of view.
+
+Fields:
+
+* `event_type`: 'hide'
 * `time_stamp`: A timestamp in seconds.
 
 
@@ -135,7 +157,7 @@ Fields:
 
 ### pointer_enter
 
-This event is emitted when the user moves a pointer into the boundary of the widget.
+This event is emitted when the user moves a pointer into the boundary of the canvas.
 
 Fields:
 
@@ -145,7 +167,7 @@ Fields:
 
 ### pointer_leave
 
-This event is emitted when the user moves a pointer out of the boundary of the widget.
+This event is emitted when the user moves a pointer out of the boundary of the canvas.
 
 Fields:
 
@@ -259,11 +281,11 @@ Positive `x` moves to the right, positive `y` moves down.
 
 ### Event capturing
 
-The `pointer_move` event only occurs when the pointer is over the widget,
+The `pointer_move` event only occurs when the pointer is over the canvas,
 unless a button is down (i.e. dragging). The `pointer_down` event can only
-occur inside the widget, the `pointer_up` can occur outside of the widget.
+occur inside the canvas, the `pointer_up` can occur outside of the canvas.
 
-Some events only work when the widget has focus within the application
+Some events only work when the canvas has focus within the application
 (i.e. having received a pointer down).
 This applies to the `key_down`, `key_up`, and `wheel` events.
 
