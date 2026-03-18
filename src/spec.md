@@ -65,12 +65,12 @@ This event is emitted when the canvas changes size.
 
 Fields:
 
-* `event_type`: 'resize'
+* `type`: 'resize'
 * `width`: The width in logical pixels.
 * `height`: The height in logical pixels.
 * `pwidth`: The width in physical pixels.
 * `pheight`: The height in physical pixels.
-* `pixel_ratio`: The pixel ratio between logical and physical pixels.
+* `pixelratio`: The pixel ratio between logical and physical pixels.
 * `timestamp`: A timestamp in seconds.
 
 
@@ -80,7 +80,7 @@ This event is emitted when the canvas is closed (i.e. destroyed).
 
 Fields:
 
-* `event_type`: 'close'
+* `type`: 'close'
 * `timestamp`: A timestamp in seconds.
 
 
@@ -92,7 +92,7 @@ shown. If this is not the case, the implementation should emit a 'hide' event.
 
 Fields:
 
-* `event_type`: 'show'
+* `type`: 'show'
 * `timestamp`: A timestamp in seconds.
 
 
@@ -102,7 +102,7 @@ This event is emitted when the canvas is hidden. It can e.g. be minimized or scr
 
 Fields:
 
-* `event_type`: 'hide'
+* `type`: 'hide'
 * `timestamp`: A timestamp in seconds.
 
 
@@ -112,7 +112,7 @@ This event is emitted when the user interacts with mouse, touch or other pointer
 
 Fields:
 
-* `event_type`: 'pointer_down'
+* `type`: 'pointer_down'
 * `x`: The horizontal position of the pointer within the canvas.
 * `y`: The vertical position of the pointer within the canvas.
 * `button`: The button to which this event applies.
@@ -139,7 +139,7 @@ This event is emitted when the user releases a pointer.
 
 Fields:
 
-* `event_type`: 'pointer_up'
+* `type`: 'pointer_up'
 * ... the other fields are the same as the pointer_down event.
 
 
@@ -151,7 +151,7 @@ In remote contexts it is recommended to throttle this event to avoid spamming th
 
 Fields:
 
-* `event_type`: 'pointer_move'
+* `type`: 'pointer_move'
 * ... the other fields are the same as the pointer_down event.
 
 
@@ -161,7 +161,7 @@ This event is emitted when the user moves a pointer into the boundary of the can
 
 Fields:
 
-* `event_type`: 'pointer_enter'
+* `type`: 'pointer_enter'
 * `timestamp`: A timestamp in seconds.
 
 
@@ -171,7 +171,7 @@ This event is emitted when the user moves a pointer out of the boundary of the c
 
 Fields:
 
-* `event_type`: 'pointer_enter'
+* `type`: 'pointer_enter'
 * `timestamp`: A timestamp in seconds.
 
 
@@ -181,7 +181,7 @@ This event is emitted on a double-click.
 
 Fields:
 
-* `event_type`: 'pointer_down'
+* `type`: 'pointer_down'
 * `x`: The horizontal position of the pointer within the canvas.
 * `y`: The vertical position of the pointer within the canvas.
 * `button`: The button to which this event applies.
@@ -198,7 +198,7 @@ In remote contexts it is recommended to throttle this event to avoid spamming th
 
 Fields:
 
-* `event_type`: 'wheel'
+* `type`: 'wheel'
 * `dx`: The horizontal scroll delta (positive means scroll right).
 * `dy`: The vertical scroll delta (positive means scroll down or zoom out).
 * `x`: The mouse horizontal position during the scroll.
@@ -227,7 +227,7 @@ This event is emitted when a key is pressed down.
 
 Fields:
 
-* `event_type`: 'key_down'
+* `type`: 'key_down'
 * `key`: The key being pressed as a string.
 * `modifiers`: A tuple of modifier keys being pressed down.
 * `timestamp`: A timestamp in seconds.
@@ -244,7 +244,7 @@ The key names follow the [browser spec](https://developer.mozilla.org/en-US/docs
 
 This event is emitted when a key is released.
 
-* `event_type`: 'key_up'
+* `type`: 'key_up'
 * `key`: The key being released as a string.
 * `modifiers`: A tuple of modifier keys being pressed down.
 * `timestamp`: A timestamp in seconds.
