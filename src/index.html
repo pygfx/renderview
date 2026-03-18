@@ -1,40 +1,99 @@
-<meta charset="utf-8" emacsmode="-*- markdown -*">
+<!DOCTYPE html>
+<html>
 
-**renderview**
+<!-- To test this page locally, run `python -m http.server 8080` in the current dir -->
 
-A protocol for interactive rendering surfaces
+<head>
+    <title>renderview</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="The renderview event specification">
+    <style>
+        body {
+            font-family: sans-serif;
+            color: #222;
+        }
 
-RenderView defines a simple specification for a renderable surface that emits
-structured input events (pointer, keyboard, resize) and displays frames. It can
-be implemented in browsers, native applications, remote renderers, notebooks,
-etc.
+        .title {
+            text-align: center;
+            font-size: 300%;
+            padding: 1em;
+            font-weight: bold;
+        }
 
-This repository contains the specification and a reference implementation in JavaScript.
+        #toc a {
+            text-decoration: none;
+        }
 
-# Links
+        .md {
+            max-width: 700px;
+            margin-inline: auto;
+            padding-inline: 16px;
+            line-height: 140%;
+        }
 
-* [Repository](https://github.com/pygfx/renderview)
-* Tester
-* renderview.js
-* renderview.css
+        h1 {
+            text-align: center;
+            margin: 3em;
+        }
 
+        h2 {
+            border-bottom: 3px solid;
+            margin-top: 3em;
+        }
 
-# Used by
+        h3 {
+            margin-top: 2em;
+        }
 
+        h4 {
+            margin-top: 1em;
+        }
 
+        h1 a,
+        h2 a,
+        h3 a,
+        h4 a {
+            text-decoration: none;
+            color: inherit
+        }
+    </style>
 
-# Spec
+</head>
 
+<body>
+    <script type="module">
+        import { marked } from "https://cdn.jsdelivr.net/npm/marked/lib/marked.esm.js";
 
+        let toc = []
+        let tocWritten = false
 
+        const renderer = new marked.Renderer();
+        renderer.heading = function (token) {
+            const slug = token.text
+                .toLowerCase()
+                .replace(/[^\w]+/g, "-")
+            let html = `<h${token.depth} id="${slug}"><a href='#${slug}'>${token.text}</a></h${token.depth}>`
+            if (token.depth > 1) {
+                toc.push(`${'&nbsp;&nbsp;&nbsp;&nbsp;'.repeat(token.depth)}<a href='#${slug}'>${token.text}</a>`)
+                if (!tocWritten) {
+                    tocWritten = true
+                    html = '<h2>Contents</h2> <div id="toc""></div>\n\n' + html
+                }
+            }
+            return html
+        }
 
-<!-- Markdeep: -->
-<style class="fallback">
-    body {
-        visibility: hidden;
-        white-space: pre;
-        font-family: monospace
-    }
-</style>
-<script src="static/markdeep.min.js" charset="utf-8"></script>
-<script>window.alreadyProcessedMarkdeep || (document.body.style.visibility = "visible")</script>
+        marked.setOptions({ renderer })
+
+        let res = await fetch('spec.md')
+        let md = await res.text()
+        document.getElementById('content').innerHTML = marked.parse(md)
+        document.getElementById('toc').innerHTML = toc.join("<br />")
+
+    </script>
+
+    <div id='content' class='md'></div>
+</body>
+
+</html>
