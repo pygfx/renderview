@@ -50,7 +50,7 @@ const MOUSE_BUTTON_MAP = {
   4: 5 // forwards
 }
 
-function getButtons(ev) {
+function getButtons (ev) {
   // Note that ev.button has a historic awkward mapping, but ev.buttons is in the order that we want
   const button = MOUSE_BUTTON_MAP[ev.button] || 0
   const buttons = []
@@ -62,17 +62,17 @@ function getButtons(ev) {
   return [button, buttons]
 }
 
-function getModifiers(ev) {
+function getModifiers (ev) {
   return Object.entries(KEY_MOD_MAP)
     .filter(([k]) => ev[k])
     .map(([, v]) => v)
 }
 
-function getTimestamp() {
+function getTimestamp () {
   return Date.now() / 1000
 }
 
-function arraysEqual(a, b) {
+function arraysEqual (a, b) {
   return a.length === b.length && a.every((val, i) => val === b[i])
 }
 
@@ -104,7 +104,7 @@ class BaseRenderView {
    * @param {HTMLElement} viewElement - The element (e.g. canvas or img) used for rendering.
    * @param {HTMLElement} wrapperElement - The wrapper element (optional; can be null).
    */
-  constructor(viewElement, wrapperElement) {
+  constructor (viewElement, wrapperElement) {
     // Check given element
     if (viewElement === undefined || !(viewElement instanceof Element)) {
       throw new Error('BaseRenderView: viewElement must be an Element.')
@@ -153,7 +153,7 @@ class BaseRenderView {
    * Close the view, disconnecting observers and clearing callbacks.
    * This does not remove the the element from the DOM; that's up to the caller.
    */
-  close() {
+  close () {
     if (this._focusElement) {
       this._focusElement.remove()
       this._focusElement = null
@@ -185,7 +185,7 @@ class BaseRenderView {
    * @param {string} width - The requested width.
    * @param {string} height - The requested height.
    */
-  setLogicalSize(width, height) {
+  setLogicalSize (width, height) {
     this.sizeElement.style.maxWidth = ''
     this.sizeElement.style.maxHeight = ''
     this.sizeElement.style.width = width + 'px'
@@ -197,7 +197,7 @@ class BaseRenderView {
    *
    * @param {string} cssWidth - The requested width as a css string, e.g. '640px' or '90%' or 'calc(100% - 10px)'.
    */
-  setCssWidth(cssWidth) {
+  setCssWidth (cssWidth) {
     this.sizeElement.style.maxWidth = ''
     this.sizeElement.style.width = cssWidth
   }
@@ -207,7 +207,7 @@ class BaseRenderView {
    *
    * @param {string} cssHeight - The requested height as a css string, e.g. '480px' or '40vh'.
    */
-  setCssHeight(cssHeight) {
+  setCssHeight (cssHeight) {
     this.sizeElement.style.maxHeight = ''
     this.sizeElement.style.height = cssHeight
   }
@@ -218,7 +218,7 @@ class BaseRenderView {
    *
    * @param {boolean} resizable - Whether to make it resizable or not.
    */
-  setResizable(resizable) {
+  setResizable (resizable) {
     if (this.wrapperElement) {
       if (resizable) {
         this.wrapperElement.classList.add('is-resizable')
@@ -234,7 +234,7 @@ class BaseRenderView {
    *
    * @param {boolean} titlebar - Whether to show the titlebar or not.
    */
-  showTitlebar(titlebar) {
+  showTitlebar (titlebar) {
     if (this.wrapperElement) {
       if (titlebar) {
         this.wrapperElement.classList.add('has-titlebar')
@@ -252,7 +252,7 @@ class BaseRenderView {
    *
    * @param {string} title - The title to set.
    */
-  setTitle(title) {
+  setTitle (title) {
     if (this.titleElement) {
       this.titleElement.innerText = title
     }
@@ -263,7 +263,7 @@ class BaseRenderView {
    *
    * @param {string} cursor - A valid string for CSS cursor.
    */
-  setCursor(cursor) {
+  setCursor (cursor) {
     this.viewElement.style.cursor = cursor
   }
 
@@ -272,7 +272,7 @@ class BaseRenderView {
    *
    * @param {number} throttle - The timeout (in ms) to wait before sending a move/wheel event.
    */
-  setThrottle(throttle) {
+  setThrottle (throttle) {
     this._wheelThrottle = throttle
     this._moveThrottle = throttle
   }
@@ -282,12 +282,12 @@ class BaseRenderView {
    *
    * @param {object} event - The event object as a 'dictionary', following the spec.
    */
-  onEvent(event) { }
+  onEvent (event) { }
 
   /**
    * Internal method to initialize the view's helper elements.
    */
-  _initElements() {
+  _initElements () {
     const signal = this._abortController.signal
 
     // Obtain container to put our hidden focus element.
@@ -353,7 +353,7 @@ class BaseRenderView {
           resizeElement.setPointerCapture(ev.pointerId)
         }
       },
-        { signal }
+      { signal }
       )
       resizeElement.addEventListener('pointermove', (ev) => {
         if (resizeInfo !== null) {
@@ -363,12 +363,12 @@ class BaseRenderView {
           this.sizeElement.style.height = resizeInfo.h + (ev.clientY - resizeInfo.y) + 'px'
         }
       },
-        { signal }
+      { signal }
       )
       resizeElement.addEventListener('lostpointercapture', (ev) => {
         resizeInfo = null
       },
-        { signal }
+      { signal }
       )
     } // wrapperElement !== null
   }
@@ -376,7 +376,7 @@ class BaseRenderView {
   /**
    * Internal method to setup listeners and register callbacks.
    */
-  _registerEvents() {
+  _registerEvents () {
     // Register events
 
     const viewElement = this.viewElement
@@ -513,7 +513,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     let pendingMoveEvent = null
@@ -571,7 +571,7 @@ class BaseRenderView {
         }
       }
     },
-      { signal }
+    { signal }
     )
 
     viewElement.addEventListener('lostpointercapture', (ev) => {
@@ -599,7 +599,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     viewElement.addEventListener('pointerenter', (ev) => {
@@ -628,7 +628,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     viewElement.addEventListener('pointerleave', (ev) => {
@@ -657,7 +657,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     // ----- click ---------------
@@ -686,7 +686,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     // ----- wheel ---------------
@@ -747,7 +747,7 @@ class BaseRenderView {
         }
       }
     },
-      { signal }
+    { signal }
     )
 
     // ----- key ---------------
@@ -773,7 +773,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     this._focusElement.addEventListener('keyup', (ev) => {
@@ -791,7 +791,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
 
     this._focusElement.addEventListener('input', (ev) => {
@@ -814,7 +814,7 @@ class BaseRenderView {
       }
       this.onEvent(event)
     },
-      { signal }
+    { signal }
     )
   }
 }
