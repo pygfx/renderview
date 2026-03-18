@@ -3,7 +3,7 @@
 
 A protocol for interactive rendering surfaces.
 
-*Last update: 09-05-2025*
+*Last update: 18-03-2026*
 
 *This spec was previously known as the jupyter_rfb event spec, but was rolled into a separate project.*
 
