@@ -69,7 +69,7 @@ function getModifiers (ev) {
 }
 
 function getTimestamp () {
-  return Date.now() / 1000
+  return performance.now() / 1000
 }
 
 function arraysEqual (a, b) {
@@ -395,7 +395,7 @@ class BaseRenderView {
         this._isVisible = isVisible
         const event = {
           event_type: isVisible ? 'show' : 'hide',
-          time_stamp: getTimestamp()
+          t: getTimestamp()
         }
         this.onEvent(event)
       }
@@ -462,7 +462,7 @@ class BaseRenderView {
         pwidth: physicalWidth,
         pheight: physicalHeight,
         pixel_ratio: ratio,
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     })
@@ -509,7 +509,7 @@ class BaseRenderView {
         modifiers,
         ntouches: 0, // TODO later: maybe via https://developer.mozilla.org/en-US/docs/Web/API/TouchEvent
         touches: {},
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -560,7 +560,7 @@ class BaseRenderView {
           modifiers,
           ntouches: 0,
           touches: {},
-          time_stamp: getTimestamp()
+          timestamp: getTimestamp()
         }
         if (this._moveThrottle > 0) {
           sendMoveEvent() // Send previous (if any)
@@ -595,7 +595,7 @@ class BaseRenderView {
         modifiers,
         ntouches: 0,
         touches: {},
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -624,7 +624,7 @@ class BaseRenderView {
         modifiers,
         ntouches: 0,
         touches: {},
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -653,7 +653,7 @@ class BaseRenderView {
         modifiers,
         ntouches: 0,
         touches: {},
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -682,7 +682,7 @@ class BaseRenderView {
         buttons,
         modifiers,
         // no touches here
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -736,7 +736,7 @@ class BaseRenderView {
           dy: ev.deltaY * scale,
           buttons,
           modifiers,
-          time_stamp: getTimestamp()
+          timestamp: getTimestamp()
         }
         if (this._wheelThrottle > 0) {
           sendWheelEvent() // Send previous (if any)
@@ -769,7 +769,7 @@ class BaseRenderView {
         event_type: 'key_down',
         key: KEY_MAP[ev.key] || ev.key,
         modifiers,
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -787,7 +787,7 @@ class BaseRenderView {
         event_type: 'key_up',
         key: KEY_MAP[ev.key] || ev.key,
         modifiers,
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
@@ -810,7 +810,7 @@ class BaseRenderView {
         is_composing: ev.isComposing,
         input_type: ev.inputType,
         // repeat: ev.repeat,  // n.a.
-        time_stamp: getTimestamp()
+        timestamp: getTimestamp()
       }
       this.onEvent(event)
     },
