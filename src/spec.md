@@ -71,7 +71,7 @@ Fields:
 * `pwidth`: The width in physical pixels.
 * `pheight`: The height in physical pixels.
 * `pixel_ratio`: The pixel ratio between logical and physical pixels.
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### close
@@ -81,7 +81,7 @@ This event is emitted when the canvas is closed (i.e. destroyed).
 Fields:
 
 * `event_type`: 'close'
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### show
@@ -93,7 +93,7 @@ shown. If this is not the case, the implementation should emit a 'hide' event.
 Fields:
 
 * `event_type`: 'show'
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### hide
@@ -103,7 +103,7 @@ This event is emitted when the canvas is hidden. It can e.g. be minimized or scr
 Fields:
 
 * `event_type`: 'hide'
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### pointer_down
@@ -120,7 +120,7 @@ Fields:
 * `modifiers`: A tuple of modifier keys being pressed down.
 * `ntouches`: Experimental.
 * `touches`: Experimental.
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 The mouse buttons are defined as follows, which is different from JavaScript (although close to the JS `buttons` bitmask):
 
@@ -162,7 +162,7 @@ This event is emitted when the user moves a pointer into the boundary of the can
 Fields:
 
 * `event_type`: 'pointer_enter'
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### pointer_leave
@@ -172,7 +172,7 @@ This event is emitted when the user moves a pointer out of the boundary of the c
 Fields:
 
 * `event_type`: 'pointer_enter'
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### double_click
@@ -187,7 +187,7 @@ Fields:
 * `button`: The button to which this event applies.
 * `buttons`: A tuple of buttons being pressed down.
 * `modifiers`: A tuple of modifier keys being pressed down. See section below for details.
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### wheel
@@ -205,7 +205,7 @@ Fields:
 * `y`: The mouse vertical position during the scroll.
 * `buttons`: aA tuple of buttons being pressed down.
 * `modifiers` *: A tuple of modifier keys being pressed down.
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 Similar to the JS wheel event, the values of the deltas depend on the
 platform and whether the mouse-wheel, trackpad or a touch-gesture is
@@ -230,7 +230,7 @@ Fields:
 * `event_type`: 'key_down'
 * `key`: The key being pressed as a string.
 * `modifiers`: A tuple of modifier keys being pressed down.
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 The key names follow the [browser spec](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent).
 
@@ -247,7 +247,7 @@ This event is emitted when a key is released.
 * `event_type`: 'key_up'
 * `key`: The key being released as a string.
 * `modifiers`: A tuple of modifier keys being pressed down.
-* `time_stamp`: A timestamp in seconds.
+* `timestamp`: A timestamp in seconds.
 
 
 ### char
@@ -267,10 +267,11 @@ Fields:
 ## Details
 
 
-### Time stamps
+### Timestamps
 
-The reference for the used time stamps is not defined by this spec. They could be Unix timestamps or something that starts at application start.
-In multi-process environments you can therefore not compare the timestamps to e.g. `time.time()`.
+The timestamps are intended to compare the time *between* events. The reference
+for the used time stamps is not defined by this spec. They could be Unix
+timestamps or something like `time.perf_counter()`.
 
 
 ### Coordinate frame
