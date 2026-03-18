@@ -177,6 +177,11 @@ class BaseRenderView {
       this.wrapperElement.innerHTML = ''
       this.wrapperElement = null
     }
+    const event = {
+      type: 'close',
+      timestamp: getTimestamp()
+    }
+    this.onEvent(event)
   }
 
   /**
@@ -395,7 +400,7 @@ class BaseRenderView {
         this._isVisible = isVisible
         const event = {
           type: isVisible ? 'show' : 'hide',
-          t: getTimestamp()
+          timestamp: getTimestamp()
         }
         this.onEvent(event)
       }
