@@ -41,6 +41,7 @@
                 if (event.type == 'resize') {
                     this.viewElement.width = event.pwidth
                     this.viewElement.height = event.pheight
+                    this.draw()
                 }
                 if (!this._drawRequested) {
                     this._drawRequested = true

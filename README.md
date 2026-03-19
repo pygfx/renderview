@@ -10,3 +10,10 @@ remote renderers, notebooks, etc.
 This repository contains the specification and a reference implementation in JavaScript.
 
 Read the spec at https://pygfx.org/renderview/
+
+
+## Contributing
+
+The JS code is formatted and linted with `standardjs`, which can be installed using `npm install --global standard`.
+
+To lint/format, run `standard src --fix` in the root of the repo before committing.
