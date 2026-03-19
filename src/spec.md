@@ -3,7 +3,7 @@
 
 A protocol for interactive rendering surfaces.
 
-*Last update: 18-03-2026*
+*Last update: 19-03-2026*
 
 *This spec was previously known as the jupyter_rfb event spec, but was rolled into a separate project.*
 
@@ -70,7 +70,7 @@ Fields:
 * `height`: The height in logical pixels.
 * `pwidth`: The width in physical pixels.
 * `pheight`: The height in physical pixels.
-* `pixelratio`: The pixel ratio between logical and physical pixels.
+* `ratio`: The pixel ratio between logical and physical pixels.
 * `timestamp`: A timestamp in seconds.
 
 
