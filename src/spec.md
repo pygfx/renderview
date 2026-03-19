@@ -70,7 +70,7 @@ Fields:
 * `height`: The height in logical pixels.
 * `pwidth`: The width in physical pixels.
 * `pheight`: The height in physical pixels.
-* `pixelratio`: The pixel ratio between logical and physical pixels.
+* `ratio`: The pixel ratio between logical and physical pixels.
 * `timestamp`: A timestamp in seconds.
 
 
