@@ -389,7 +389,7 @@ class BaseRenderView {
     const viewElement = this.viewElement
     const signal = this._abortController.signal // to unregister/abort stuff
 
-    // ----- visibility ---------------
+    // ----- visibility and focus ---------------
 
     this._intersectionObserver = new IntersectionObserver((entries, observer) => {
       // This gets called when one of the observed elements becomes visible/invisible.
@@ -408,6 +408,23 @@ class BaseRenderView {
       }
     })
     this._intersectionObserver.observe(viewElement)
+
+    this._focusElement.addEventListener('focus', (ev) => {
+      if (this.wrapperElement) {
+        this.wrapperElement.classList.add('has-focus')
+      }
+      // at the moment the spec does not define focus and blur events, so only used internally for styling purposeses
+    },
+    { signal }
+    )
+
+    this._focusElement.addEventListener('blur', (ev) => {
+      if (this.wrapperElement) {
+        this.wrapperElement.classList.remove('has-focus')
+      }
+    },
+    { signal }
+    )
 
     // ----- resize ---------------
 

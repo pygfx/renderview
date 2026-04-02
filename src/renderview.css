@@ -10,6 +10,7 @@ div.renderview-wrapper {
     --line-radius: 6px;
     --line-thickness: 2px;
     --line-color: rgba(127, 127, 127, 0.3);
+    --line-color-focus: rgba(127, 127, 127, 0.5);
     --titlebar-height: 1.7em;
     display: inline-block;
     position: relative;
@@ -61,6 +62,11 @@ div.renderview-wrapper .renderview-resizer {
     width: 14px;
     height: 14px;
     cursor: nwse-resize;
+}
+
+div.renderview-wrapper.has-focus,
+div.renderview-wrapper.has-focus .renderview-top {
+    border-color: var(--line-color-focus);
 }
 
 div.renderview-wrapper.has-titlebar {
