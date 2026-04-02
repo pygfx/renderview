@@ -238,6 +238,38 @@ class BaseRenderView {
   }
 
   /**
+  * Set whether the view has a button to minimize the widget.
+  * Note that the view can only be made minimizable if it was instantiated with a wrapper.
+  *
+  * @param {boolean} resizable - Whether to make it resizable or not.
+  */
+  setMinimizable (minimizable) {
+    if (this.wrapperElement) {
+      if (minimizable) {
+        this.wrapperElement.classList.add('is-minimizable')
+      } else {
+        this.wrapperElement.classList.remove('is-minimizable')
+      }
+    }
+  }
+
+  /**
+  * Set whether the view has a button to close the widget.
+  * Note that the view can only be made closable if it was instantiated with a wrapper.
+  *
+  * @param {boolean} resizable - Whether to make it resizable or not.
+  */
+  setClosable (closable) {
+    if (this.wrapperElement) {
+      if (closable) {
+        this.wrapperElement.classList.add('is-closable')
+      } else {
+        this.wrapperElement.classList.remove('is-closable')
+      }
+    }
+  }
+
+  /**
    * Set whether the view has a titlebar.
    * Note that the view can only have a titlebar if it was instantiated with a wrapper.
    *
@@ -375,9 +407,12 @@ class BaseRenderView {
       this.butCloseElement = document.createElement('span')
       this.butCloseElement.innerText = '×'
       this.butCloseElement.classList.add('renderview-button', 'renderview-close-button')
+      const butPadElement = document.createElement('span')
+      butPadElement.style.width = '0.3em'
       topElement.appendChild(this.titleElement)
       topElement.appendChild(this.butMinimizeElement)
       topElement.appendChild(this.butCloseElement)
+      topElement.appendChild(butPadElement)
       wrapperElement.appendChild(topElement)
 
       // Enable resizing
