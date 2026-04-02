@@ -3,7 +3,7 @@
 
 A protocol for interactive rendering surfaces.
 
-*Last update: 19-03-2026*
+*Last update: 03-04-2026*
 
 *This spec was previously known as the jupyter_rfb event spec, but was rolled into a separate project.*
 
@@ -103,6 +103,26 @@ This event is emitted when the canvas is hidden. It can e.g. be minimized or scr
 Fields:
 
 * `type`: 'hide'
+* `timestamp`: A timestamp in seconds.
+
+
+### focus_in
+
+This event emitted when the canvas receives focus and can now receive key events.
+
+Fields:
+
+* `type`: 'focus_in'
+* `timestamp`: A timestamp in seconds.
+
+
+### focus_out
+
+This event emitted when the canvas loses focus (a.k.a. blur) and can no longer receive key events.
+
+Fields:
+
+* `type`: 'focus_out'
 * `timestamp`: A timestamp in seconds.
 
 
@@ -307,6 +327,12 @@ not result in pointer events (down, move, nor up).
 To avoid straining the IO, certain events can be throttled. Their effect
 is accumulated if this makes sense(e.g. wheel event).
 
+
+## Changelog
+
+* 03-04-2026: add 'focus_in'  and 'focus_out' events.
+* 18-03-2026: add 'show' and 'hide' events.
+* 18-03-2026: create this document starting from a copy of the Jupyter event spec.
 
 
 <br><br>

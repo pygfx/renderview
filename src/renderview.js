@@ -437,7 +437,11 @@ class BaseRenderView {
       if (this.wrapperElement) {
         this.wrapperElement.classList.add('has-focus')
       }
-      // at the moment the spec does not define focus and blur events, so only used internally for styling purposeses
+      const event = {
+        type: 'focus_in',
+        timestamp: getTimestamp()
+      }
+      this.onEvent(event)
     },
     { signal }
     )
@@ -446,6 +450,11 @@ class BaseRenderView {
       if (this.wrapperElement) {
         this.wrapperElement.classList.remove('has-focus')
       }
+      const event = {
+        type: 'focus_out',
+        timestamp: getTimestamp()
+      }
+      this.onEvent(event)
     },
     { signal }
     )
