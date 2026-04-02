@@ -50,7 +50,6 @@ div.renderview-wrapper .renderview-top span {
     text-overflow: ellipsis;
     white-space: nowrap;
     padding-left: 0.5em;
-    /* width: 100%; */
 }
 
 div.renderview-wrapper .renderview-resizer {
