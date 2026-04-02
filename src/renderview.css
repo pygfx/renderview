@@ -45,12 +45,29 @@ div.renderview-wrapper .renderview-top {
     align-items: center;
 }
 
-div.renderview-wrapper .renderview-top span {
+div.renderview-wrapper .renderview-title {
     display: inline-block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding-left: 0.5em;
+    margin-left: 0.5em;
+    flex: 1;
+}
+
+div.renderview-wrapper .renderview-button {
+    display: none;
+    flex: 0;
+    padding: 0 0.3em;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+div.renderview-wrapper .renderview-button:hover {
+    background: var(--line-color);
+}
+
+div.renderview-wrapper .renderview-button:last-child {
+    margin-right: 0.2em;
 }
 
 div.renderview-wrapper .renderview-resizer {
@@ -79,4 +96,8 @@ div.renderview-wrapper.has-titlebar .renderview-top {
 
 div.renderview-wrapper.is-resizable .renderview-resizer {
     display: block;
+}
+
+div.renderview-wrapper.is-closable .renderview-close-button {
+    display: inline-block;
 }

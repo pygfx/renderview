@@ -173,8 +173,12 @@ class BaseRenderView {
     this.viewElement = null
     this.sizeElement = null
     this.titleElement = null
+    this.butCloseElement = null
     if (this.wrapperElement) {
       this.wrapperElement.innerHTML = ''
+      this.wrapperElement.classList.remove('renderview-wrapper')
+      this.wrapperElement.style.width = ''
+      this.wrapperElement.style.height = ''
       this.wrapperElement = null
     }
     const event = {
@@ -343,10 +347,14 @@ class BaseRenderView {
       // Create title bar
       const topElement = document.createElement('div')
       topElement.classList.add('renderview-top')
-      const titleElement = document.createElement('span')
-      this.titleElement = titleElement
-      titleElement.innerText = 'RenderView'
-      topElement.appendChild(titleElement)
+      this.titleElement = document.createElement('span')
+      this.titleElement.innerText = 'RenderView'
+      this.titleElement.classList.add('renderview-title')
+      this.butCloseElement = document.createElement('span')
+      this.butCloseElement.innerText = '×'
+      this.butCloseElement.classList.add('renderview-button', 'renderview-close-button')
+      topElement.appendChild(this.titleElement)
+      topElement.appendChild(this.butCloseElement)
       wrapperElement.appendChild(topElement)
 
       // Enable resizing
@@ -389,7 +397,7 @@ class BaseRenderView {
     const viewElement = this.viewElement
     const signal = this._abortController.signal // to unregister/abort stuff
 
-    // ----- visibility and focus ---------------
+    // ----- visibility and focus and closing ---------------
 
     this._intersectionObserver = new IntersectionObserver((entries, observer) => {
       // This gets called when one of the observed elements becomes visible/invisible.
@@ -425,6 +433,14 @@ class BaseRenderView {
     },
     { signal }
     )
+
+    if (this.butCloseElement) {
+      this.butCloseElement.addEventListener('click', (ev) => {
+        this.close()
+      },
+      { signal }
+      )
+    }
 
     // ----- resize ---------------
 

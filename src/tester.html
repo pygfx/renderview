@@ -51,6 +51,7 @@
 
             draw() {
                 this._drawRequested = false
+                if (!this.viewElement) { return }  // closed
 
                 const ctx = this.viewElement.getContext('2d')  // CanvasRenderingContext2D
                 ctx.fillStyle = '#abc'
@@ -121,7 +122,7 @@
     <canvas id='canvas1' style='width: 100%; height: 480px; background: #aaa;'></canvas>
 
     <h2>Canvas with wrapper</h2>
-    <div id='canvas2' class='renderview-wrapper has-titlebar is-resizable'
+    <div id='canvas2' class='renderview-wrapper has-titlebar is-resizable is-closable'
         style='width: 800px; height: 480px; background: #aaa'>
         Loading ...
     </div>
