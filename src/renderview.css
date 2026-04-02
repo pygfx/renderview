@@ -7,22 +7,23 @@
  *************************************************************************************************/
 
 div.renderview-wrapper {
+    --line-radius: 6px;
+    --line-thickness: 2px;
+    --line-color: rgba(127, 127, 127, 0.3);
+    --titlebar-height: 1.7em;
     display: inline-block;
     position: relative;
-    box-sizing: border-box;
     overflow: visible;
     min-width: 32px;
     min-height: 32px;
+    border: var(--line-thickness) solid var(--line-color);
 }
 
 div.renderview-wrapper .renderview-view {
     display: block;
-    box-sizing: border-box;
     width: 100%;
     height: 100%;
     background: none;
-    border-radius: 6px;
-    border: 1px solid rgba(127, 127, 127, 0.2);
 }
 
 div.renderview-wrapper .renderview-hidden {
@@ -32,30 +33,28 @@ div.renderview-wrapper .renderview-hidden {
 div.renderview-wrapper .renderview-top {
     display: none;
     position: absolute;
-    box-sizing: border-box;
     z-index: 2;
-    top: -1.5em;
-    height: 1.5em;
+    top: calc(0px - var(--titlebar-height) - 2 * var(--line-thickness));
+    height: var(--titlebar-height);
+    left: calc(0px - var(--line-thickness));
     width: 100%;
-    border-radius: 6px 6px 0 0;
-    border: 1px solid rgba(127, 127, 127, 0.2);
+    border-radius: var(--line-radius) var(--line-radius) 0 0;
+    border: var(--line-thickness) solid var(--line-color);
     border-bottom: 0;
+    align-items: center;
 }
 
 div.renderview-wrapper .renderview-top span {
     display: inline-block;
-    box-sizing: border-box;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    padding: 0.1em 0.5em;
-    width: 100%;
+    padding-left: 0.5em;
 }
 
 div.renderview-wrapper .renderview-resizer {
     display: none;
     position: absolute;
-    box-sizing: border-box;
     z-index: 3;
     bottom: 0;
     right: 0;
@@ -69,12 +68,7 @@ div.renderview-wrapper.has-titlebar {
 }
 
 div.renderview-wrapper.has-titlebar .renderview-top {
-    display: block;
-}
-
-div.renderview-wrapper.has-titlebar .renderview-view {
-    border-top-left-radius: 0 !important;
-    border-top-right-radius: 0 !important;
+    display: flex;
 }
 
 div.renderview-wrapper.is-resizable .renderview-resizer {
