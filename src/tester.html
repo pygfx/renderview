@@ -58,8 +58,8 @@
 
                 const fontSize = 16
                 const lineSpacing = fontSize * 2.5
-                const x = 10
-                let y = lineSpacing
+                const x = 20
+                let y = 10 + lineSpacing
 
                 ctx.font = `${fontSize * window.devicePixelRatio}px sans`;
                 ctx.fillStyle = `rgba(0, 0, 0, 1)`
@@ -72,7 +72,7 @@
                     y += lineSpacing
                     a = Math.max(0, a - 0.04)
                     ctx.fillStyle = `rgba(0, 0, 0, ${a})`
-                    ctx.fillText(eventToString(event), 5, y)
+                    ctx.fillText(eventToString(event), x, y)
                 }
             }
         }
@@ -101,6 +101,10 @@
         let element2 = document.getElementById('canvas2')
         let canvas2 = document.createElement('canvas')
         let view2 = new TesterRenderView(canvas2, element2)
+
+        // Great for debugging to be able to access the views
+        window.view1 = view1
+        window.view2 = view2
 
     </script>
 </head>
