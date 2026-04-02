@@ -66,10 +66,6 @@ div.renderview-wrapper .renderview-button:hover {
     background: var(--line-color);
 }
 
-div.renderview-wrapper .renderview-button:last-child {
-    margin-right: 0.2em;
-}
-
 div.renderview-wrapper .renderview-resizer {
     display: none;
     position: absolute;
@@ -96,6 +92,10 @@ div.renderview-wrapper.has-titlebar .renderview-top {
 
 div.renderview-wrapper.is-resizable .renderview-resizer {
     display: block;
+}
+
+div.renderview-wrapper.is-resizable.is-minimized .renderview-resizer {
+    display: none;
 }
 
 div.renderview-wrapper.is-minimizable .renderview-minimize-button {
