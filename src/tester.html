@@ -7,12 +7,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="The RenderView tester">
     <!-- renderview.js is loaded as plain script here. This is simpler and nice for debugging, but in production it's better to load it as a module or wrap it in a IIFE -->
+    <link rel="stylesheet" type="text/css"
+        href="http://fonts.googleapis.com/css?family=Ubuntu:regular,bold&subset=Latin">
     <script src="renderview.js"></script>
     <link rel="stylesheet" href="renderview.css">
     <style>
         body {
             height: 210vh;
             padding: 20px;
+            font-family: 'Ubuntu', serif;
         }
     </style>
     <script type="module">
@@ -62,7 +65,7 @@
                 const x = 20
                 let y = 10 + lineSpacing
 
-                ctx.font = `${fontSize * window.devicePixelRatio}px sans`;
+                ctx.font = `${fontSize * window.devicePixelRatio}px Ubuntu Mono`;
                 ctx.fillStyle = `rgba(0, 0, 0, 1)`
 
                 ctx.fillText(`${this._eventCount} events`, x, y)
